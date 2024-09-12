@@ -1,0 +1,87 @@
+Work to do:
+Layout:
+  1. add "customers" button ✓ - Josh
+  
+/Account/Customers:
+  0. trigger: customer's address cannot == store address (seed "invalid address" in addresses, set to that?)
+  Login:
+    1. add "Employee Log In" ✓ - Josh
+    2. create not working (refer to employee) ✓ Jsoh
+  Index:
+    1. only employees can see ✓ - Josh
+    2. remove address ✓ - Josh
+  Create:
+    1. "Create" --> "Register" ✓ - Josh
+    
+  Edit:
+    1. edit address on site (refer to shipments/edit ) (Morrison started but got stuck) - Son ✓
+
+/Account/Employees:
+  Index:
+    1. add search by store, role, ✓ Morrison (only added another sort as of now)
+    2. remove address ✓ - Bader
+    3. change Index heading to "All Employees" ✓ - Josh
+    4. remove "create new" ✓ - Bader (Morrison Linked to correct page)
+    5. regular employee: only see employees in their own store, no edit/details/delete buttons (unauthorized), can do those tasks on their own account ✓ - Bader
+    6. supervisor: only edit/details/delete employees in their own store - Son ✓
+    7. admin: access rights to all employees ✓ - Bader
+  Edit: 
+    1. refer to edit shipment to change address ✓ - Bader/Josh
+    2. supervisors need assign a new employee to a store - Son ✓
+  Details:
+    1. show full address ✓ - Josh
+    2. show "Role Admin" instead of just Admin ✓ - Josh
+
+/Shop:
+  1.Remove details (and links from all pages) ✓ - Josh
+  Index:
+    1. Filter by stock, price (range) ✓ - Josh
+    2. "Create New" --> "New Products" ✓ - Josh
+    3. Anonymous (including customers): only see products, no edit/delete ✓ - Andy (bruh i did this on 4/20 - josh)
+  Create:
+    1. UnitCost --> "Unit Cost" ✓ - Josh
+    2. "Create Product" --> "New Product" ✓ - Josh
+    3. "Create" --> "Add" ✓ - Josh
+    
+    
+/Stores:
+  Index:
+    1. Create --> "New Store" ✓ - Andy
+    2. only admin can see/access "New Store" and edit, delete ✓ - Andy
+    3. seed more meaningful data (different states, zipcode) ✓ Morrison
+    4. move id to the left (top of html), change it to "#" (meaning store number) ✓ - Andy
+  Details:
+    1. (Optional) Add filtered list of employees for specific store
+  Edit:
+    1. Edit Address on site, no reference (refer to edit shipment as example) - Son ✓
+  
+/Shipments:
+  Index:  
+    1. only employees can "New Shupment" ✓ - Josh
+    2. hide edit/delete from customers/anonymous ✓ - Andy
+    3. remove weight ✓ - Josh
+    4. more filter: sender, receiver, zipcode, city, state, status, express, ✓ - Josh 
+    5. shipcost --> Cost ✓ - Josh
+    6. more meaningful seeds ✓ Morrison
+    7*. Employee: separating "in store" and "expecting" shipments: not show ALL shipments - Son
+        Customer: separating "Sent" and "Received" by customer ✓ - Josh
+  Create:
+    1. fix trigger auto cost/shipping classes ✓ - Son
+    2. handle dup address - Son 
+  Edit:
+    1. Title: Edit Shipment ✓ - Josh
+    2. edit trigger autodate for new tracking  ✓ - Son
+    
+/tracking
+  remove create, details, index ✓ - Andy (i hid them not remove)
+  only employee can delete ✓ - Andy
+  3. remove tracking details ✓ - Josh
+  4. only edit destination - Son ✓
+  5. can only checkout if (logged in employee == tracking.storeid) - Son ✓
+  6. checkout: datetime.now - Son ✓
+  
+/sales: only employees can see button ✓ - Andy
+  details: show "anonymous" if no buyer info ✓ - Josh
+  *: shopping cart (if anyone think they can handle https://learningprogramming.net/net/asp-net-core-razor-pages/build-shopping-cart-with-session-in-asp-net-core-razor-pages/)
+  
+ 1. add "Get a quote" page: enter shipment details to determine cost ✓ - Josh

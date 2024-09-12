@@ -1,0 +1,86 @@
+2/11: 1st meeting; 
+      designed schema; 
+      everyone: design UI (web pages) and finalize later; 
+      Morrison+Bader: implement UI (write HTML/CSS); 
+      Josh: make ER diagram;
+      Josh+Son+Andy: watch JS video; 
+
+2/15:  submitted checkpoint 1:  https://docs.google.com/document/d/1RvaJqhX4yX2T4j6XtGkrv9AF6HnU0_cyD4j2WQ9mKao/edit?usp=sharing
+
+2/25: microsoft sql server set up and try out some sql codes; 
+      add employee RegistrationCode to STORE: an employee can only register for an account by providing registration code for that store, only store supervisor can change registration code
+      
+2/28: github training complete;
+      share .sql file, assigned each member 1 table to create
+
+3/4: each team member creates a table in .sql file:
+      + PACKAGE: Son
+      + CUSTOMER: Josh
+      + EMPLOYEE: Andy
+      + STORE: Bader
+      + TRACKING RECORD: Morrison
+      + ADDRESS: Son
+      + foreign keys: Son
+      Son backups the db for checkpoint 2
+      
+3/11: Josh: add status table, add attributes to other tables
+      Andy: add services table
+      Morrison: add shipment_type table
+      Son: adjust/fix bugs before submitting dump file to Professor
+
+3/29: Son: created initial proj, added Customer + Employee Models
+      Josh: added Models: Package, Store, TrackingRecord
+      Bader: added Models: Address, Postage, Sale, ShipmentClass, Product
+      Morrison: host a sample website at https://uhpostalservice.azurewebsites.net/
+     
+4/3:  Josh: added date changing trigger
+      Bader: seeded the database
+      
+4/4: Son: hosted website for checkpoint 3; added autostat trigger; 
+      Josh: edit create new employee/customer pages
+      
+4/8: Son: combine employee/customer registrationconfirmation/logout pages; add package dimensions to package table; edit trigger autostat
+      Josh: edit new package page; edit trigger date changing; add auto cost trigger
+
+4/9: Josh: Changed cost trigger to work with ShippingClass, fixed address create page to work when a duplicate address is added
+      Son: Made changes to Package Index
+      
+4/10: Josh: Added sorting and filtering by state to the store index
+
+4/11: Andy: create and edit new store page
+      Son: add accessdenied page; 
+
+4/13: Josh: Did create,details page for sales, redirected tracking record create link, made NewSale trigger, Finished Shop page
+      Son: add checkin page; add adminreplacesupervisor trigger
+
+4/14: Josh: made UpdateSale trigger, finished sales page
+      Son: fix publishing issues
+
+4/15: Josh: Made multi choice filter on store page, added authentication to create,edit,delete on shop and store pages, added authetication to Employee and Sales index page, added delete features, changed edit pages (not yet working), added sorting and filtering to employees and customers
+      Son: add checkout page
+      Bader: built design foundation for the homepage
+      Morrison: finished design for the homepage
+
+4/16: Son: edit shipment; fix bug create sale 
+
+4/17: Bader: edit Employee page; fixed up 'Details' and 'Delete' options
+      Josh: fixed tracking number search bar
+
+4/18: Son: Fixed triggers working on published website, made to do list after we saw the presentations
+      Josh: got edit sale working
+
+4/19: Josh: made a bunch of visual changes, added sorting and filtering to shipments page, added customers button on header
+      Son: add link to employee login on customer login page; fix costtrigger
+      Morrison: Worked on edit address of customer, linked create page to correct page for employee, added another sorting to employee, and did many meanginful seeds. 
+      Andy: Prohibit customers from having access to admin/employee/supervisor pages in Sales, Tracking, Shipment, and Stores. Visual changes.
+
+4/20: Josh: Changed some seeding, made customer create page, changed visibility of shop index buttons, added stock sort to shop, added price range filter to shop
+
+4/21: Josh: Added a button that lets you edit your own account
+      Son: edit customers page
+     
+4/22: Josh: edit employee page, edit sale page (again), fixed up employee index
+      Son: changed the icon, edit employee role, edit store, fix checkout
+
+4/23: Josh: changed shipments index for customers, added get a quote page, made some small visual changes
+      Son: fix edit checkout; sort employee, fix subtle logic errors + data display; write readme, upload to google drive, finalize for submission

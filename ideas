@@ -1,0 +1,49 @@
+Josh:
+    I think we should have an easily comprehendable way to show the history rather than just listing out the times and locations.
+    I also think that we should make a place where you can see the status of all your packages at the same time rather than having to check each one individually
+    As far as what i can contribute i havent done anything like this before so im not entirely sure. I know C++ and python and the only database i ever used was 
+    microsoft access in a class I took at lonestar like 4 or 5 years ago. I think i am pretty good at coding and debugging though so i should be able to 
+    contribute a sizeable amount there
+  
+Morrison Fowlks
+    1. Ideas:
+
+    Entity: Packages, customers, tracking
+    Attributes:
+    Packages: going in and out of the post office (Time and Location), where they are going (location and name of receiver), and who is sending them (customer name)
+
+    Customers: Name, Address, age, Special package being sent?
+
+    Tracking: current location, past location, total progress of shipment?
+
+    2. Contribution Preferences: 
+    I’m personally willing to do anything! I love learning new languages, and am very interested in the User interface aspect of this assignment. 
+    I am mostly familiar with Python, C++, and Ruby; also loving data science as a whole. 
+
+Andy Nguyen
+    1. I looked at what ideas were presemted already and i agree with what we have so far.
+    Some things I could add onto what we have already is having the packages be assigned to customers, tracking times, having an order #, 
+    and maybe an order history for customers to see.
+    Something else to consider is returns or cancelled or lost packages.
+
+    2. I am willing to do anything as well as I do not have much experience in databases. I know c++ and python.
+
+
+Son
+    - Initialize pkg: 
+        + ask customer's info, if email not already in db, create an entry; if already in db, get customer ID and store in sender field
+        + request delivery info
+        + fields auto complete by sys: employee id, time sent, tracking #, status
+    -  search tracking number:
+        + if employee: 
+
+
+Professor:
+    Looks good.  Think about this – in a typical courier/post office setting, the customer can be either a sender or a recipient.  So, there are types of customers.  
+    Same goes for employees – there are different types of employees in an organization. Also, as we have discussed in the class, think of details of attributes.  
+    For eg., the ‘address’ attribute if set up as a string of 30 characters, does not give me any way to process and analyze that data, if I want to generate a 
+    report of how many packages were sent to a particular ZIP code last month.  So, think of the details when you are designing attributes of entities.
+    
+    As regards recipients vs. senders of packages...   All of them are customers of your post office/courier service.  
+    Today's recipient may be tomorrow's sender of packages.  Also, you want more than just email for the recipient, as you need other 
+    data about recipients to run reports on how many packages were delivered to a particular city in the last year.  
