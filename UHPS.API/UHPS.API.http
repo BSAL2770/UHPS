@@ -1,0 +1,6 @@
+@UHPS.API_HostAddress = http://localhost:5207
+
+GET {{UHPS.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

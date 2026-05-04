@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: uhps-postgres
+    environment:
+      POSTGRES_USER: uhps_admin
+      POSTGRES_PASSWORD: dev_password
+      POSTGRES_DB: uhps_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - uhps_data:/var/lib/postgresql/data
+
+volumes:
+  uhps_data:
