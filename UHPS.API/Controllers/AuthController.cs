@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UHPS.API.Dtos.Auth;
 using UHPS.API.Services;
@@ -55,5 +56,28 @@ public class AuthController : ControllerBase
             });
         }
         return Ok(result);
+    }
+
+    [HttpGet("me")]
+    [Authorize]
+    [ProducesResponseType(typeof(UserResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult<UserResponse>> Me(CancellationToken ct)
+    {
+        var user = await _authService.GetCurrentUserAsync(ct);
+        return user is null ? Unauthorized() : Ok(user);
+    }
+
+    [HttpPost("change-password")]
+    [Authorize]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> ChangePassword(
+        [FromBody] ChangePasswordRequest request,
+        CancellationToken ct)
+    {
+        var success = await _authService.ChangePasswordAsync(request, ct);
+        return success ? NoContent() : Unauthorized();
     }
 }

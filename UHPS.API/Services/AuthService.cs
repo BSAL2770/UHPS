@@ -4,6 +4,8 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using UHPS.API.Auth;
+using UHPS.API.Common;
 using UHPS.API.Data;
 using UHPS.API.Dtos.Auth;
 using UHPS.API.Entities;
@@ -17,11 +19,13 @@ public class AuthService : IAuthService
 
     private readonly AppDbContext _db;
     private readonly JwtSettings _jwtSettings;
+    private readonly ICurrentUser _currentUser;
 
-    public AuthService(AppDbContext db, IOptions<JwtSettings> jwtOptions)
+    public AuthService(AppDbContext db, IOptions<JwtSettings> jwtOptions, ICurrentUser currentUser)
     {
         _db = db;
         _jwtSettings = jwtOptions.Value;
+        _currentUser = currentUser;
     }
 
     public async Task<AuthResponse?> RegisterAsync(RegisterRequest request, CancellationToken ct)
@@ -61,6 +65,39 @@ public class AuthService : IAuthService
         if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash)) return null;
 
         return BuildResponse(user, user.Role);
+    }
+
+    public async Task<UserResponse?> GetCurrentUserAsync(CancellationToken ct)
+    {
+        if (!_currentUser.UserId.HasValue) return null;
+
+        var user = await _db.Users
+            .Include(u => u.Role)
+            .FirstOrDefaultAsync(u => u.Id == _currentUser.UserId.Value, ct);
+
+        if (user is null) return null;
+
+        return new UserResponse
+        {
+            UserId = user.Id,
+            Email = user.Email,
+            Role = user.Role.Name
+        };
+    }
+
+    public async Task<bool> ChangePasswordAsync(ChangePasswordRequest request, CancellationToken ct)
+    {
+        if (!_currentUser.UserId.HasValue) return false;
+
+        var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == _currentUser.UserId.Value, ct);
+        if (user is null) return false;
+
+        if (!BCrypt.Net.BCrypt.Verify(request.CurrentPassword, user.PasswordHash))
+            throw new ValidationException("Current password is incorrect.");
+
+        user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.NewPassword, workFactor: 11);
+        await _db.SaveChangesAsync(ct);
+        return true;
     }
 
     private AuthResponse BuildResponse(User user, Role role)
