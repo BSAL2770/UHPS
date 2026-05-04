@@ -15,3 +15,9 @@ appsettings.Development.json
 # OS
 .DS_Store
 Thumbs.db
+
+# Claude Code local state — not part of project source
+.claude/
+
+# Claude Code handoff doc — not part of project source
+PROJECT_CONTEXT.md
