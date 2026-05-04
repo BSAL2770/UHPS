@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using UHPS.API.Auth;
+using UHPS.API.Common;
 using UHPS.API.Data;
 using UHPS.API.Options;
 using UHPS.API.Services;
@@ -11,6 +13,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddProblemDetails();
 
 builder.Services.AddSwaggerGen(c =>
 {
@@ -64,9 +68,18 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 builder.Services.AddAuthorization();
+
+builder.Services.AddScoped<ICurrentUser, CurrentUser>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IStoreService, StoreService>();
+builder.Services.AddScoped<IShipmentService, ShipmentService>();
+
+builder.Services.AddExceptionHandler<ForbiddenAccessExceptionHandler>();
+builder.Services.AddExceptionHandler<ValidationExceptionHandler>();
 
 var app = builder.Build();
+
+app.UseExceptionHandler();
 
 if (app.Environment.IsDevelopment())
 {
