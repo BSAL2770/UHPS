@@ -39,6 +39,7 @@ public class StoreService : IStoreService
 
         var store = new Store
         {
+            Name = request.Name,
             PhoneNumber = request.PhoneNumber,
             SupervisorId = request.SupervisorId,
             Address = request.Address is null ? null : MapAddress(request.Address)
@@ -64,6 +65,7 @@ public class StoreService : IStoreService
 
         await ValidateSupervisorAsync(request.SupervisorId, ct);
 
+        store.Name = request.Name;
         store.PhoneNumber = request.PhoneNumber;
         store.SupervisorId = request.SupervisorId;
 
@@ -123,6 +125,7 @@ public class StoreService : IStoreService
     private static StoreResponse MapToResponse(Store store) => new()
     {
         Id = store.Id,
+        Name = store.Name,
         PhoneNumber = store.PhoneNumber,
         Address = store.Address is null ? null : new AddressResponse
         {

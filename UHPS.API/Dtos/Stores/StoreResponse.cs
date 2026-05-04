@@ -5,6 +5,7 @@ namespace UHPS.API.Dtos.Stores;
 public class StoreResponse
 {
     public required int Id { get; set; }
+    public required string Name { get; set; }
     public required string PhoneNumber { get; set; }
     public AddressResponse? Address { get; set; }
     public int? SupervisorId { get; set; }

@@ -2,6 +2,7 @@ namespace UHPS.API.Entities;
 
 public class Store : BaseEntity
 {
+    public required string Name { get; set; }
     public required string PhoneNumber { get; set; }
 
     public int? SupervisorId { get; set; }

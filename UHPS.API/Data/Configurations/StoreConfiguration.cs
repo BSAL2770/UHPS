@@ -11,6 +11,12 @@ public class StoreConfiguration : IEntityTypeConfiguration<Store>
         builder.ToTable("Stores");
         BaseEntityConfiguration.ConfigureBase(builder);
 
+        builder.Property(s => s.Name)
+            .IsRequired()
+            .HasMaxLength(200);
+
+        builder.HasIndex(s => s.Name);
+
         builder.Property(s => s.PhoneNumber)
             .IsRequired()
             .HasMaxLength(20);
