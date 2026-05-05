@@ -53,8 +53,16 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+// Connection string sourcing:
+// - Production / managed-host deployments set DATABASE_URL in URI form; convert to Npgsql key=value.
+// - Local dev falls back to appsettings.json's DefaultConnection (Host=127.0.0.1).
+// Either way, ConnectionStrings__DefaultConnection env var also works as a final override
+// since it goes through the standard config provider.
+var connectionString = DatabaseUrl.FromEnvVar()
+    ?? builder.Configuration.GetConnectionString("DefaultConnection");
+
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(connectionString));
 
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
 
@@ -117,6 +125,16 @@ builder.Services.AddRateLimiter(options =>
 });
 
 var app = builder.Build();
+
+// Auto-apply migrations on startup in non-Development environments. Local dev keeps the
+// explicit `dotnet ef database update` workflow so changes are reviewable before applying;
+// managed deployments don't have a developer at the console, so the app applies on boot.
+if (!app.Environment.IsDevelopment())
+{
+    using var scope = app.Services.CreateScope();
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    await db.Database.MigrateAsync();
+}
 
 app.UseExceptionHandler();
 
