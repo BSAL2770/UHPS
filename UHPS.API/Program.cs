@@ -1,6 +1,8 @@
 using System.Text;
 using System.Text.Json.Serialization;
+using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -95,6 +97,25 @@ builder.Services.AddScoped<ITrackingService, TrackingService>();
 builder.Services.AddExceptionHandler<ForbiddenAccessExceptionHandler>();
 builder.Services.AddExceptionHandler<ValidationExceptionHandler>();
 
+// Per-IP rate limiter on the public anonymous tracking endpoint.
+// 60 requests per minute per IP — generous for a real user pasting tracking numbers,
+// restrictive enough that single-IP enumeration takes ~hours per 10k IDs. Distributed
+// enumeration (botnets) defeats this; the proper fix is non-sequential public tracking
+// numbers, documented in the README under Known limitations.
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+    options.AddPolicy("public-tracking", context =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: context.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+            factory: _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 60,
+                Window = TimeSpan.FromMinutes(1),
+                QueueLimit = 0
+            }));
+});
+
 var app = builder.Build();
 
 app.UseExceptionHandler();
@@ -106,6 +127,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseRateLimiter();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
