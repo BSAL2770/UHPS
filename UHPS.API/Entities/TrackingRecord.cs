@@ -11,9 +11,7 @@ public class TrackingRecord : BaseEntity
     public int StoreId { get; set; }
     public Store Store { get; set; } = null!;
 
-    public DateTime? TimeIn { get; set; }
-    public DateTime? TimeOut { get; set; }
+    public PackageStatus Status { get; set; }
 
-    public int? DestinationAddressId { get; set; }
-    public Address? DestinationAddress { get; set; }
+    public string? Notes { get; set; }
 }

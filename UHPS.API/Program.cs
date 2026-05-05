@@ -90,6 +90,7 @@ builder.Services.AddScoped<IShipmentService, ShipmentService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IPackageService, PackageService>();
+builder.Services.AddScoped<ITrackingService, TrackingService>();
 
 builder.Services.AddExceptionHandler<ForbiddenAccessExceptionHandler>();
 builder.Services.AddExceptionHandler<ValidationExceptionHandler>();

@@ -11,6 +11,13 @@ public class TrackingRecordConfiguration : IEntityTypeConfiguration<TrackingReco
         builder.ToTable("TrackingRecords");
         BaseEntityConfiguration.ConfigureBase(builder);
 
+        builder.Property(t => t.Status)
+            .IsRequired()
+            .HasConversion<int>();
+
+        builder.Property(t => t.Notes)
+            .HasMaxLength(500);
+
         builder.HasOne(t => t.Employee)
             .WithMany(e => e.TrackingRecords)
             .HasForeignKey(t => t.EmployeeId)
@@ -25,10 +32,5 @@ public class TrackingRecordConfiguration : IEntityTypeConfiguration<TrackingReco
             .WithMany(s => s.TrackingRecords)
             .HasForeignKey(t => t.StoreId)
             .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasOne(t => t.DestinationAddress)
-            .WithMany()
-            .HasForeignKey(t => t.DestinationAddressId)
-            .OnDelete(DeleteBehavior.SetNull);
     }
 }

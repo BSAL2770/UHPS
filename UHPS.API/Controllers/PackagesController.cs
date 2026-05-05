@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using UHPS.API.Auth;
 using UHPS.API.Common;
 using UHPS.API.Dtos.Packages;
+using UHPS.API.Dtos.Tracking;
 using UHPS.API.Services;
 
 namespace UHPS.API.Controllers;
@@ -13,10 +14,12 @@ namespace UHPS.API.Controllers;
 public class PackagesController : ControllerBase
 {
     private readonly IPackageService _packages;
+    private readonly ITrackingService _tracking;
 
-    public PackagesController(IPackageService packages)
+    public PackagesController(IPackageService packages, ITrackingService tracking)
     {
         _packages = packages;
+        _tracking = tracking;
     }
 
     [HttpGet]
@@ -92,5 +95,32 @@ public class PackagesController : ControllerBase
     {
         var updated = await _packages.UpdateStatusAsync(id, request.Status, ct);
         return updated is null ? NotFound() : Ok(updated);
+    }
+
+    [HttpGet("{id:int}/tracking")]
+    [ProducesResponseType(typeof(PackageTrackingResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<PackageTrackingResponse>> GetTracking(int id, CancellationToken ct)
+    {
+        var history = await _tracking.GetPackageHistoryAsync(id, ct);
+        return history is null ? NotFound() : Ok(history);
+    }
+
+    [HttpPost("{id:int}/scan")]
+    [Authorize(Roles = Roles.Staff)]
+    [ProducesResponseType(typeof(TrackingEventResponse), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<TrackingEventResponse>> Scan(
+        int id,
+        [FromBody] ScanRequest request,
+        CancellationToken ct)
+    {
+        var record = await _tracking.ScanAsync(id, request, ct);
+        return record is null
+            ? NotFound()
+            : StatusCode(StatusCodes.Status201Created, record);
     }
 }
