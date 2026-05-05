@@ -34,7 +34,6 @@ public class PackagesController : ControllerBase
     }
 
     [HttpGet("me")]
-    [Authorize(Roles = Roles.Customer)]
     [ProducesResponseType(typeof(PagedResult<PackageResponse>), StatusCodes.Status200OK)]
     public async Task<ActionResult<PagedResult<PackageResponse>>> GetMyPackages(
         [FromQuery] PagingQuery paging,
