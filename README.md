@@ -4,9 +4,7 @@ A package tracking and shipping management API. ASP.NET Core 9 Web API on Postgr
 
 ## About this project
 
-UHPS started as a group project for a database systems course at the University of Houston — a Razor Pages monolith on SQL Server, built collaboratively to model a postal service. The application source was lost over time; only the SQL dump survived in the [original repo](https://github.com/BSAL2770/UHPS).
-
-This is a Web API rebuild of that project, designed to revisit the original schema with everything I've learned in the years since. The point isn't to ship a postal service — it's to demonstrate end-to-end ASP.NET Core API design grounded in a real domain model rather than a contrived todo-list demo. Every architectural decision below was deliberate and has a defensible rationale; the README leans long because portfolio review is the goal.
+UHPS started as a group project for a database systems course at the University of Houston in early 2022 — a Razor Pages monolith on SQL Server, built collaboratively by a 5-person team (Bader Salem, Son La, Morrison Fowlks, Andy Nguyen, Josh Opie) over the Jan–Apr 2022 semester to model a postal service. The application source was lost over time; only the SQL dump survived in the [original repo](https://github.com/BSAL2770/UHPS).
 
 ## Tech stack
 
