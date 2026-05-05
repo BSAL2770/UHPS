@@ -33,7 +33,6 @@ public class EmployeesController : ControllerBase
     }
 
     [HttpGet("me")]
-    [Authorize(Roles = EmployeeOrSupervisor)]
     [ProducesResponseType(typeof(EmployeeResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<EmployeeResponse>> GetMe(CancellationToken ct)

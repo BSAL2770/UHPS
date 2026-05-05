@@ -31,7 +31,6 @@ public class CustomersController : ControllerBase
     }
 
     [HttpGet("me")]
-    [Authorize(Roles = Roles.Customer)]
     [ProducesResponseType(typeof(CustomerResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<CustomerResponse>> GetMe(CancellationToken ct)
