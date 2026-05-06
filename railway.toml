@@ -1,0 +1,8 @@
+[build]
+builder = "railpack"
+
+[build.railpack]
+buildCommand = "dotnet publish UHPS.API/UHPS.API.csproj -c Release -o out"
+
+[deploy]
+startCommand = "dotnet out/UHPS.API.dll"
