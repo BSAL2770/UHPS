@@ -1,0 +1,4 @@
+[settings]
+builder = "NIXPACKS"
+buildCommand = "dotnet publish UHPS.API/UHPS.API.csproj -c Release -o out"
+startCommand = "dotnet out/UHPS.API.dll"
