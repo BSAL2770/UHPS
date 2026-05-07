@@ -129,12 +129,8 @@ var app = builder.Build();
 // Auto-apply migrations on startup in non-Development environments. Local dev keeps the
 // explicit `dotnet ef database update` workflow so changes are reviewable before applying;
 // managed deployments don't have a developer at the console, so the app applies on boot.
-if (!app.Environment.IsDevelopment())
-{
-    using var scope = app.Services.CreateScope();
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    await db.Database.MigrateAsync();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseExceptionHandler();
 
