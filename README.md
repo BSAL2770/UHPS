@@ -2,6 +2,12 @@
 
 A package tracking and shipping management API. ASP.NET Core 9 Web API on PostgreSQL with JWT-authenticated role-based access (Admin, Supervisor, Employee, Customer) and an anonymous public tracking endpoint.
 
+## Live demo
+
+Deployed on Railway with managed PostgreSQL: **https://uhps-api-production.up.railway.app/swagger**
+
+Swagger UI is publicly exposed for portfolio review. Authenticated endpoints require obtaining a JWT via `POST /api/auth/login`. The anonymous tracking endpoint (`GET /api/tracking/{id}`) is rate-limited to 60 requests/minute per IP — see architecture decision #7 and the rate-limiting note in `Program.cs`.
+
 ## About this project
 
 UHPS started as a group project for a database systems course at the University of Houston in early 2022 — a Razor Pages monolith on SQL Server, built collaboratively by a 5-person team (Bader Salem, Son La, Morrison Fowlks, Andy Nguyen, Josh Opie) over the Jan–Apr 2022 semester to model a postal service. The application source was lost over time; only the SQL dump survived in the [original repo](https://github.com/BSAL2770/UHPS).
