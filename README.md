@@ -4,7 +4,7 @@ A package tracking and shipping management API. ASP.NET Core 9 Web API on Postgr
 
 ## Live demo
 
-Deployed on Railway with managed PostgreSQL: **https://uhps-api-production.up.railway.app/swagger**
+Deployed on Railway with managed PostgreSQL: **https://uhps-api.up.railway.app/swagger**
 
 Swagger UI is publicly exposed for portfolio review. Authenticated endpoints require obtaining a JWT via `POST /api/auth/login`. The anonymous tracking endpoint (`GET /api/tracking/{id}`) is rate-limited to 60 requests/minute per IP — see architecture decision #7 and the rate-limiting note in `Program.cs`.
 
